@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 const useDevice = () => {
   const [adapter, setAdapter] = useState<GPUAdapter>();
   const [device, setDevice] = useState<GPUDevice>();
