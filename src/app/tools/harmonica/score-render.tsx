@@ -1,3 +1,4 @@
+'use client';
 import { useEffect } from 'react';
 import { Renderer, Stave } from 'vexflow';
 

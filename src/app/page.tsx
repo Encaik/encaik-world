@@ -1,10 +1,11 @@
 "use client"
-import { Button, Card, Divider, List, Typography, Tooltip } from 'antd';
+import { Button, Card, Divider, List, Typography, Tooltip, Image } from 'antd';
 import Meta from 'antd/es/card/Meta';
 import Paragraph from 'antd/es/typography/Paragraph';
 import Title from 'antd/es/typography/Title';
 import { useRouter } from 'next/navigation';
 import { SendOutlined, LinkOutlined } from '@ant-design/icons';
+import '@ant-design/v5-patch-for-react-19';
 
 const DEFAULT_IMG = 'https://img.shields.io/badge/Encaik-Tools-blue?style=flat-square';
 
@@ -107,7 +108,11 @@ export default function Home() {
           <List.Item key={item.title}>
             <Card
               className="shadow-lg hover:shadow-2xl transition-shadow duration-300"
-              style={{ height: 400, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+              style={{ 
+                height: 400, 
+                display: 'flex', 
+                flexDirection: 'column',
+              }}
               cover={
                 <div
                   style={{
@@ -122,18 +127,29 @@ export default function Home() {
                     overflow: 'hidden',
                   }}
                 >
-                  <img
-                    alt="img"
+                  <Image
+                    alt={item.title}
                     src={item.img || DEFAULT_IMG}
                     style={{
                       width: '100%',
                       height: '100%',
                       objectFit: 'contain',
-                      filter: item.img ? undefined : 'grayscale(1)',
-                      opacity: item.img ? 1 : 0.7,
-                      background: 'transparent',
-                      display: 'block',
                     }}
+                    preview={false}
+                    fallback={DEFAULT_IMG}
+                    placeholder={
+                      <div style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        background: '#f0f2f5',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#999'
+                      }}>
+                        加载中...
+                      </div>
+                    }
                   />
                 </div>
               }

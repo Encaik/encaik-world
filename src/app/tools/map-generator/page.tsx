@@ -1,5 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import SimplexNoise from 'simplex-noise';
+'use client';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { createNoise2D } from 'simplex-noise';
+import alea from 'alea';
 /**
  * 伪随机数生成器，保证每次刷新不同地图
  * @param {number} seed 种子
@@ -21,7 +23,7 @@ function createSeedRandom(seed: number) {
  * @returns {Promise<number[][]>} 掩码二维数组
  */
 async function generateSingleContinentMask(w: number, h: number, landRatio: number, rand: () => number): Promise<number[][]> {
-  const simplex = new SimplexNoise(rand);
+  const noise2D = createNoise2D(alea(rand));
   const scale = 1.2;
   const raw = Array.from({ length: h }, () => Array(w).fill(0));
   const values: number[] = [];
@@ -29,9 +31,9 @@ async function generateSingleContinentMask(w: number, h: number, landRatio: numb
     for (let x = 0; x < w; x++) {
       const nx = (x - w / 2) / (w / 2) * scale;
       const ny = (y - h / 2) / (h / 2) * scale;
-      let v = 0.7 * simplex.noise2D(nx, ny)
-        + 0.2 * simplex.noise2D(nx * 2, ny * 2)
-        + 0.1 * simplex.noise2D(nx * 4, ny * 4);
+      let v = 0.7 * noise2D(nx, ny)
+        + 0.2 * noise2D(nx * 2, ny * 2)
+        + 0.1 * noise2D(nx * 4, ny * 4);
       const dist = Math.sqrt(nx * nx + ny * ny);
       v -= dist * 0.7;
       raw[y][x] = v;
@@ -57,7 +59,7 @@ async function generateSingleContinentMask(w: number, h: number, landRatio: numb
         while (queue.length) {
           const [cx, cy] = queue.shift()!;
           region.push([cx, cy]);
-          for (const [dx, dy] of [[0,1],[1,0],[0,-1],[-1,0]]) {
+          for (const [dx, dy] of [[0, 1], [1, 0], [0, -1], [-1, 0]]) {
             const nx = cx + dx, ny = cy + dy;
             if (nx >= 0 && nx < w && ny >= 0 && ny < h && mask[ny][nx] && !visited[ny][nx]) {
               visited[ny][nx] = true;
@@ -159,9 +161,31 @@ const MapGenerator = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+
+  /**
+   * 渲染地图到canvas
+   */
+  const renderMap = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const rand = createSeedRandom(Date.now() % 1000000);
+    const w = canvas.width, h = canvas.height;
+    // 类型控制：single为中间一块完整大陆，四周全是海
+    if (continentType === 'single') {
+      generateSingleContinentMask(w, h, landRatio, rand).then((rawMask) => {
+        const mask = cellularAutomata(rawMask, 2);
+        drawMap(ctx, mask);
+      });
+    }
+    // 预留：其他类型可扩展
+  }, [continentType, landRatio]);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
     const resize = () => {
       if (!containerRef.current) return;
       const { clientWidth, clientHeight } = containerRef.current;
@@ -172,34 +196,12 @@ const MapGenerator = () => {
     window.addEventListener('resize', resize);
     resize();
     return () => window.removeEventListener('resize', resize);
-     
-  }, []);
 
-  /**
-   * 渲染地图到canvas
-   */
-  function renderMap() {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    const rand = createSeedRandom(Date.now() % 1000000);
-    const w = canvas.width, h = canvas.height;
-    const mask: number[][] = [];
-    // 类型控制：single为中间一块完整大陆，四周全是海
-    if (continentType === 'single') {
-      generateSingleContinentMask(w, h, landRatio, rand).then((rawMask) => {
-        const mask = cellularAutomata(rawMask, 2);
-        drawMap(ctx, mask);
-      });
-    }
-    // 预留：其他类型可扩展
-  }
+  }, [renderMap]);
 
   useEffect(() => {
     renderMap();
-     
-  }, []);
+  }, [renderMap]);
 
   return (
     <div ref={containerRef} style={{ width: '100%', height: 'calc(100vh - 64px - 32px)', background: SEA_COLOR, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: 0, padding: 0 }}>

@@ -17,26 +17,39 @@ export default function PicFrame() {
   const [borderGroup, setBorderGroup] = useState<fabric.Group | null>(null);
   const [scale, setScale] = useState<number>(1);
   const canvasRef = useRef<HTMLDivElement>(null);
-  const canvasInitialized = useRef(false);
+  const canvasInstanceRef = useRef<fabric.Canvas | null>(null);
 
   // 初始化画布
   useEffect(() => {
-    if (canvasInitialized.current) return;
     const canvasElement = document.getElementById(
       'pic-container',
     ) as HTMLCanvasElement;
     if (canvasElement) {
+      // 检查是否已经存在canvas实例，如果存在则先销毁
+      if (canvasInstanceRef.current) {
+        canvasInstanceRef.current.dispose();
+      }
+      
       const { width, height } = canvasElement.getBoundingClientRect();
       const newCanvas = new fabric.Canvas(canvasElement, {
         width,
         height,
       });
-      // 使用setTimeout来避免在useEffect中直接调用setState
-      setTimeout(() => {
+      
+      canvasInstanceRef.current = newCanvas;
+      // 使用requestAnimationFrame来避免在useEffect中直接调用setState
+      requestAnimationFrame(() => {
         setCanvas(newCanvas);
-        canvasInitialized.current = true;
-      }, 0);
+      });
     }
+    
+    // 清理函数
+    return () => {
+      if (canvasInstanceRef.current) {
+        canvasInstanceRef.current.dispose();
+        canvasInstanceRef.current = null;
+      }
+    };
   }, []);
 
   useEffect(() => {

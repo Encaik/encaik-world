@@ -1,3 +1,4 @@
+'use client';
 import { Button, Col, ConfigProvider, Layout, Row } from 'antd';
 import { Content, Header } from 'antd/es/layout/layout';
 import TextScore from './text-score';
