@@ -5,19 +5,19 @@ import useWebGPU from './useWebgpu';
 export default function Webgpu() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
-  
+
   // 在useEffect中设置canvas，避免在渲染时访问ref
   useEffect(() => {
     if (canvasRef.current) {
       setCanvas(canvasRef.current);
     }
   }, []);
-  
+
   const { adapter, device, context, format } = useWebGPU(canvas);
 
   useEffect(() => {
     if (!canvas || !context || !adapter || !device) return;
-    
+
     const vertexCode = `struct VertexOutput {
       @builtin(position) pos : vec4<f32>
   };
@@ -71,13 +71,13 @@ export default function Webgpu() {
     function encoder() {
       const commandEncoder = device!.createCommandEncoder();
       const textureView = context!.getCurrentTexture().createView();
-      const renderPassDescriptor = {
+      const renderPassDescriptor: GPURenderPassDescriptor = {
         colorAttachments: [
           {
             view: textureView,
-            clearValue: [0, 0, 0, 1],
-            loadOp: 'clear',
-            storeOp: 'store',
+            clearValue: { r: 0, g: 0, b: 0, a: 1 },
+            loadOp: 'clear',   // 显式指定为 'clear'
+            storeOp: 'store',  // 显式指定为 'store'
           },
         ],
       };

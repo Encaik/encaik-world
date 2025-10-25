@@ -26,13 +26,6 @@ const tools = [
     isExternal: true,
   },
   {
-    title: '口琴谱（施工中）',
-    link: '/tools/harmonica',
-    img: '',
-    description: '口琴谱生成与渲染工具，助力口琴学习与创作。',
-    isExternal: false,
-  },
-  {
     title: 'WebGpu',
     link: '/tools/webgpu',
     img: '',
