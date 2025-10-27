@@ -50,7 +50,7 @@ export function generateStaticParams() {
     { slug: 'springboot' },
     { slug: 'svelte' },
     { slug: 'taro' },
-    { slug: 'tdt&cesium' },
+    { slug: 'tdt-cesium' },
     { slug: 'tensorflow' },
     { slug: 'three' },
     { slug: 'tonejs' },

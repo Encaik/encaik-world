@@ -184,7 +184,7 @@ const blogs = [
   },
   {
     title: '天地图 & Cesium',
-    link: '/blogs/tdt&cesium',
+    link: '/blogs/tdt-cesium',
   },
   {
     title: 'TensorFlow 机器学习',
