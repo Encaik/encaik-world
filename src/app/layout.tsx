@@ -4,7 +4,8 @@ import "./globals.css";
 import { Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import LayoutHeader from "./components/Header";
+import LayoutHeader from "./components/layout-header";
+import '@ant-design/v5-patch-for-react-19';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Encaik Tools",
-  description: "Encaik Tools is a collection of tools for developers and enthusiasts.",
+  title: "Encaik World",
+  description: "「Hello Encaik World」—— 一个安放热爱与探索的角落 🌟",
 };
 
 export default function RootLayout({

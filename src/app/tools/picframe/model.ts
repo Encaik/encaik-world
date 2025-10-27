@@ -20,8 +20,8 @@ export interface ExifData {
   Make: string; // 相机制造商
   Model: string; // 相机型号
   DateTimeOriginal: string | null; // 拍摄日期和时间
-  ExposureTime: Number; // 曝光时间
-  FNumber: Number; // 光圈数值
+  ExposureTime: number; // 曝光时间
+  FNumber: number; // 光圈数值
   FocalLength: string; // 焦距
   ISOSpeedRatings: number | null; // ISO感光度
   MeteringMode: string | null; // 测光模式
