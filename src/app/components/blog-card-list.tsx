@@ -8,6 +8,11 @@ const DEFAULT_IMG = 'https://img.shields.io/badge/Encaik-Blogs-blue?style=flat-s
 
 const blogs = [
   {
+    title: '前端工程化',
+    link: '/blogs/index',
+    img: '/images/blogs/blog/index.png',
+  },
+  {
     title: '高德 JS API 总结',
     link: '/blogs/amap',
     img: '/images/blogs/blog/amap.png',
