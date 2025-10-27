@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Layout } from 'antd';
-import { Content, Header } from 'antd/es/layout/layout';
+import { Content } from 'antd/es/layout/layout';
+import { AntdRegistry } from "@ant-design/nextjs-registry";
+import LayoutHeader from "./components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,14 +34,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Layout className="w-screen h-screen bg-gray-200">
-          <Header className="flex flex-row justify-start items-center bg-cyan-950 shadow-lg shadow-blue-500/30">
-            <span className="text-gray-100 text-3xl font-bold">Encaik Tools</span>
-          </Header>
-          <Content className="p-8 overflow-auto">
-            {children}
-          </Content>
-        </Layout>
+        <AntdRegistry>
+          <Layout className="w-screen h-screen bg-gray-200">
+            <LayoutHeader />
+            <Content className="p-8 overflow-auto">
+              {children}
+            </Content>
+          </Layout>
+        </AntdRegistry>
       </body>
     </html>
   );
