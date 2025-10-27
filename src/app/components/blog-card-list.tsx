@@ -81,7 +81,7 @@ const blogs = [
   },
   {
     title: 'Flex & Grid 布局',
-    link: '/blogs/flex&grid',
+    link: '/blogs/flex-grid',
     img: '/images/blogs/blog/flex&grid.png',
   },
   {

@@ -26,7 +26,7 @@ export function generateStaticParams() {
     { slug: 'egg' },
     { slug: 'electron-angular' },
     { slug: 'electron-vue' },
-    { slug: 'flex&grid' },
+    { slug: 'flex-grid' },
     { slug: 'flutter' },
     { slug: 'g6' },
     { slug: 'gis' },
