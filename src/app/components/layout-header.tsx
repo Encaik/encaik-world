@@ -1,13 +1,12 @@
 'use client';
 import { Menu, MenuProps } from 'antd';
 import { Header } from 'antd/es/layout/layout';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function LayoutHeader() {
   const router = useRouter();
-  const [current, setCurrent] = useState('');
+  const pathname = usePathname();
 
   // 导航菜单数据
   const menuItems = [
@@ -39,15 +38,21 @@ export default function LayoutHeader() {
     },
   ];
 
+  const getSelectedKey = () => {
+    if (pathname === '/') return ['']; // 首页对应key为空
+
+    const segments = pathname.replace(/^\/|\/$/g, '').split('/');
+    // 例如：/tools/picframe -> 返回 ['tools', 'picframe']（支持多级菜单选中）
+    return segments;
+  };
+
   const handleMenuClick: MenuProps['onClick'] = (e) => {
-    setCurrent(e.key);
-    // 构建路由路径
     const path = e.keyPath.reverse().filter(Boolean).join('/');
     router.push(path ? `/${path}` : '/');
   };
 
   return (
-    <Header className="flex items-center bg-indigo-900/95 shadow-md py-0 px-4 md:px-6">
+    <Header className="flex items-center shadow-md py-0 px-4 md:px-6">
       {/* Logo 区域 */}
       <Link href="/" className="text-white text-xl md:text-2xl font-bold tracking-tight flex items-center gap-2">
         <span>Encaik</span>
@@ -59,7 +64,7 @@ export default function LayoutHeader() {
         <Menu
           mode="horizontal"
           theme="dark"
-          selectedKeys={[current]}
+          selectedKeys={getSelectedKey()}
           items={menuItems}
           onClick={handleMenuClick}
 

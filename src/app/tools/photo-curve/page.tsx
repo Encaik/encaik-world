@@ -133,9 +133,9 @@ export default function PhotoCurve() {
   };
 
   return (
-    <div className="flex-1 flex flex-row h-full w-full p-0 m-0 min-h-0" style={{ minHeight: 0, maxHeight: '100%', overflow: 'hidden' }}>
+    <div className="flex-1 flex flex-row w-full p-0 m-0" style={{ minHeight: 0, maxHeight: '100%', overflow: 'hidden' }}>
       {/* 左侧图片canvas区 */}
-      <div className="flex-1 flex flex-col items-center justify-center bg-gray-100 rounded-l-2xl p-8 min-w-0 transition-all duration-300 h-full min-h-0">
+      <div className="flex-1 flex flex-col items-center justify-center bg-gray-100 rounded-l-2xl p-8 transition-all duration-300">
         <Upload
           showUploadList={false}
           beforeUpload={() => false}
@@ -144,7 +144,7 @@ export default function PhotoCurve() {
         >
           <Button icon={<UploadOutlined />}>上传照片</Button>
         </Upload>
-        <div ref={containerRef} className="relative flex-1 w-full flex justify-center items-center mt-4" style={{maxWidth: '100%', minHeight: 0}}>
+        <div ref={containerRef} className="relative flex-1 w-full flex justify-center items-center mt-4" style={{ maxWidth: '100%', minHeight: 0 }}>
           <div className="flex items-center justify-center w-full h-full">
             <canvas
               ref={canvasRef}
@@ -168,7 +168,7 @@ export default function PhotoCurve() {
         </div>
       </div>
       {/* 右侧曲线调整区 */}
-      <div className="w-[400px] min-w-[320px] max-w-[400px] bg-white rounded-r-2xl shadow p-6 flex flex-col items-center h-full border-l border-gray-200 transition-all duration-300 min-h-0">
+      <div className="w-[400px] min-w-[320px] max-w-[400px] bg-white rounded-r-2xl shadow p-6 flex flex-col items-center border-l border-gray-200 transition-all duration-300">
         <div className="text-lg font-bold mb-4">曲线调整</div>
         <CurvePanel onCurveChange={handleCurveChange} resetSignal={resetSignal} />
       </div>
