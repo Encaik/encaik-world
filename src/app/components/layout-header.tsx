@@ -36,6 +36,10 @@ export default function LayoutHeader() {
         }
       ]
     },
+    {
+      label: <Link href="/blogs">博客</Link>,
+      key: 'blogs',
+    }
   ];
 
   const getSelectedKey = () => {
