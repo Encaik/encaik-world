@@ -35,7 +35,7 @@ export default function LayoutHeader() {
     },
   ]
 
-  const [current, setCurrent] = useState('home');
+  const [current, setCurrent] = useState('');
 
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);

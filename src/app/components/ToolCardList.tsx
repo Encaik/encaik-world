@@ -62,9 +62,13 @@ export default function ToolCardList() {
             key={item.title}
             className="shadow-lg hover:shadow-2xl transition-shadow duration-300"
             style={{
-              height: 400,
               display: 'flex',
               flexDirection: 'column',
+            }}
+            styles={{
+              body: {
+                flex: '1 1'
+              }
             }}
             cover={
               <div
