@@ -11,7 +11,6 @@ export default async function Page({
 
 export function generateStaticParams() {
   return [
-    { slug: 'canvas-lib' },
     { slug: 'chatdemo' },
     { slug: 'dachuang' },
     { slug: 'electron' },
