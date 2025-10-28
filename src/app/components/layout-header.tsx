@@ -39,7 +39,25 @@ export default function LayoutHeader() {
     {
       label: <Link href="/blogs">博客</Link>,
       key: 'blogs',
-    }
+    },
+    {
+      label: '力扣刷题',
+      key: 'leecode',
+      children: [
+        {
+          label: <Link href="/leecode/check-in">打卡记录</Link>,
+          key: 'check-in',
+        },
+        {
+          label: <Link href="/leecode/daily">日常刷题</Link>,
+          key: 'daily',
+        },
+      ]
+    },
+    {
+      label: <Link href="/repo">仓库</Link>,
+      key: 'repo',
+    },
   ];
 
   const getSelectedKey = () => {
