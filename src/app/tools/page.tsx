@@ -4,7 +4,7 @@ import Link from 'next/link';
 const tools = [
   {
     title: '照片边框',
-    link: '/tools/picframe',
+    href: '/tools/picframe',
     description:
       '为相机照片添加精致边框和水印，自动生成相机型号、拍摄参数等信息',
     icon: '📷',
@@ -15,7 +15,7 @@ const tools = [
   },
   {
     title: '照片调色',
-    link: '/tools/photo-curve',
+    href: '/tools/photo-curve',
     description:
       '支持上传照片，左侧渲染，右侧可用风格曲线调整全通道和RGB通道色彩',
     icon: '🎨',
@@ -26,7 +26,7 @@ const tools = [
   },
   {
     title: '地图生成',
-    link: '/tools/map-generator',
+    href: '/tools/map-generator',
     description: '在线地图生成工具，使用 Simplex 噪声生成随机大陆地图',
     icon: '🗺️',
     gradient: 'from-emerald-500 to-teal-600',
@@ -36,7 +36,7 @@ const tools = [
   },
   {
     title: 'WebGPU',
-    link: '/tools/webgpu',
+    href: '/tools/webgpu',
     description: 'WebGPU 图形渲染实验，探索前沿 Web 图形技术',
     icon: '⚡',
     gradient: 'from-amber-500 to-orange-600',
@@ -46,7 +46,7 @@ const tools = [
   },
   {
     title: '简谱编辑',
-    link: 'https://simple-notation.vercel.app/',
+    href: 'https://simple-notation.vercel.app/',
     description: '在线简谱编辑与渲染，支持多种乐谱格式，适合音乐爱好者',
     icon: '🎵',
     gradient: 'from-cyan-500 to-blue-600',
@@ -56,7 +56,7 @@ const tools = [
   },
   {
     title: '技术博客',
-    link: 'https://encaik.top/',
+    href: 'https://encaik.top/',
     description: '记录开发心得与技术分享，探索前端技术的无限可能',
     icon: '📝',
     gradient: 'from-slate-500 to-slate-700',
@@ -66,33 +66,38 @@ const tools = [
   },
 ];
 
-export default function ToolCardList() {
+export default function ToolsPage() {
   return (
-    <section className="py-20 md:py-32 bg-gray-50">
-      <div className="container mx-auto px-4 md:px-6">
-        {/* 标题区域 */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-100 rounded-full mb-6">
-            <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-            <span className="text-blue-600 text-sm font-medium">工具集合</span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+    <main className="min-h-screen bg-white pt-16">
+      {/* 页面标题 */}
+      <div className="bg-gradient-to-r from-purple-50 to-pink-50 py-12 md:py-16">
+        <div className="container mx-auto px-4 md:px-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             实用{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
               工具
             </span>
-          </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          </h1>
+          <p className="text-gray-600 text-lg max-w-2xl">
             精心打造的在线工具，帮助你更高效地完成工作
           </p>
         </div>
+      </div>
 
-        {/* 卡片网格 */}
+      <div className="container mx-auto px-4 md:px-6 py-12">
+        {/* 工具统计 */}
+        <div className="flex items-center gap-4 mb-8">
+          <div className="w-1 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
+          <h2 className="text-2xl font-bold text-gray-900">工具列表</h2>
+          <span className="text-gray-500">共 {tools.length} 个工具</span>
+        </div>
+
+        {/* 工具网格 */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {tools.map((tool, index) => (
             <Link
               key={tool.title}
-              href={tool.link}
+              href={tool.href}
               target={tool.isExternal ? '_blank' : '_self'}
               className="group"
               style={{ animationDelay: `${index * 100}ms` }}
@@ -148,10 +153,11 @@ export default function ToolCardList() {
                     ))}
                   </div>
 
-                  {/* 箭头指示器 */}
-                  <div className="absolute bottom-6 right-6 w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-blue-300 group-hover:bg-blue-50 transition-all duration-300">
+                  {/* 进入按钮 */}
+                  <div className="mt-4 flex items-center gap-2 text-blue-600 font-medium text-sm group-hover:gap-3 transition-all">
+                    <span>使用工具</span>
                     <svg
-                      className="w-4 h-4 text-gray-400 group-hover:text-blue-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
+                      className="w-4 h-4 group-hover:translate-x-1 transition-transform"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -160,7 +166,7 @@ export default function ToolCardList() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M7 17L17 7M17 7H7M17 7v10"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
                       />
                     </svg>
                   </div>
@@ -169,21 +175,7 @@ export default function ToolCardList() {
             </Link>
           ))}
         </div>
-
-        {/* 底部提示 */}
-        <div className="text-center mt-16">
-          <p className="text-gray-500 text-sm mb-4">更多工具正在开发中...</p>
-          <div className="flex justify-center gap-2">
-            {[...Array(3)].map((_, i) => (
-              <div
-                key={i}
-                className="w-2 h-2 bg-gray-300 rounded-full animate-pulse"
-                style={{ animationDelay: `${i * 200}ms` }}
-              />
-            ))}
-          </div>
-        </div>
       </div>
-    </section>
+    </main>
   );
 }

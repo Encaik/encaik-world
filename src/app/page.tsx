@@ -1,11 +1,13 @@
 import Hero from './components/hero';
 import ToolCardList from './components/tool-card-list';
+import HomeModules from './components/home-modules';
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-24 flex flex-col items-center justify-center">
+    <main className="min-h-screen bg-white">
       <Hero />
+      <HomeModules />
       <ToolCardList />
-    </div>
+    </main>
   );
 }

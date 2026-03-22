@@ -1,10 +1,5 @@
 'use client';
-import { Button, Card, Tooltip, Image } from 'antd';
-import Meta from 'antd/es/card/Meta';
-import { ReadOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-
-const DEFAULT_IMG = 'https://img.shields.io/badge/Encaik-Blogs-blue?style=flat-square';
 
 // 定义博客项的类型接口
 export interface BlogItem {
@@ -24,102 +19,73 @@ export default function BlogCardList({ blogs, title }: BlogCardListProps) {
     <section className="py-12 md:py-16">
       <div className="container mx-auto px-4 md:px-6">
         {/* 标题区域 */}
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">{title}</h2>
-          <div className="w-24 h-1 bg-indigo-600 rounded-full mx-auto"></div>
+        <div className="mb-12">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full" />
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+              {title}
+            </h2>
+          </div>
+          <p className="text-gray-500 ml-4">共 {blogs.length} 篇</p>
         </div>
 
         {/* 卡片网格 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {blogs.map((item) => (
-            <Card
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {blogs.map((item, index) => (
+            <Link
               key={item.title}
-              className="overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                borderRadius: '12px'
-              }}
-              styles={{
-                cover: {
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: '#fafafa'
-                },
-                body: {
-                  flex: '1 1',
-                  padding: '16px',
-                  display: 'flex',
-                  flexDirection: 'column'
-                },
-                actions: {
-                  padding: '12px 16px',
-                  borderTop: '1px solid #f0f2f5',
-                  background: '#fafafa'
-                }
-              }}
-              cover={
-                <Image
-                  alt={item.title}
-                  src={item.img || DEFAULT_IMG}
-                  style={{
-                    width: '100%',
-                    height: '180px',
-                    objectFit: 'contain'
-                  }}
-                  preview={false}
-                  fallback={DEFAULT_IMG}
-                />
-              }
-              actions={[
-                <Tooltip
-                  key="action"
-                  title={'立即阅读'}
-                  placement="top"
-                >
-                  <Link
-                    href={item.link}
-                    target={item.isExternal ? '_blank' : '_self'}
-                    className="w-full"
-                  >
-                    <Button
-                      type="primary"
-                      icon={<ReadOutlined />}
-                      style={{
-                        width: '100%',
-                        background: '#4f46e5',
-                        borderColor: '#4f46e5',
-                        borderRadius: '8px'
-                      }}
-                      className="hover:bg-indigo-700 transition-colors"
-                    >
-                      立即阅读
-                    </Button>
-                  </Link>
-                </Tooltip>,
-              ]}
+              href={item.link}
+              target={item.isExternal ? '_blank' : '_self'}
+              className="group"
+              style={{ animationDelay: `${index * 50}ms` }}
             >
-              {/* 卡片内容 */}
-              <Meta
-                title={
-                  <span
-                    style={{
-                      fontSize: '18px',
-                      fontWeight: 600,
-                      color: '#1e293b',
-                      display: 'inline-flex',
-                      whiteSpace: 'break-spaces',
-                    }}
-                  >
+              <div className="relative h-full bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 hover:border-blue-200 hover:shadow-lg hover:-translate-y-1">
+                {/* 顶部装饰线 */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                <div className="p-5">
+                  {/* 标题 */}
+                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors mb-3 line-clamp-2">
                     {item.title}
-                  </span>
-                }
-              />
-            </Card>
+                  </h3>
+
+                  {/* 链接类型标签 */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      {item.isExternal ? (
+                        <span className="px-2 py-1 text-xs font-medium text-amber-600 bg-amber-50 border border-amber-100 rounded-md">
+                          掘金
+                        </span>
+                      ) : (
+                        <span className="px-2 py-1 text-xs font-medium text-blue-600 bg-blue-50 border border-blue-100 rounded-md">
+                          本地
+                        </span>
+                      )}
+                    </div>
+
+                    {/* 箭头 */}
+                    <div className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-blue-300 group-hover:bg-blue-50 transition-all duration-300">
+                      <svg
+                        className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
-    </section >
+    </section>
   );
 }

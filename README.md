@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Encaik World
 
-## Getting Started
+「Hello Encaik World」—— 一个安放热爱与探索的角落 🌟
 
-First, run the development server:
+一个基于 Next.js 16 + React 19 的个人技术博客，主打技术分享，同时提供实用的在线工具。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 技术栈
+
+- **框架**: Next.js 16 (App Router) + React 19
+- **语言**: TypeScript 5
+- **UI**: Ant Design 5 + Tailwind CSS 4
+- **内容**: MDX (Markdown + JSX)
+- **工具**: Fabric.js, Simplex Noise, WebGPU
+- **包管理**: pnpm
+
+## 项目结构
+
+```
+src/
+├── app/
+│   ├── blogs/          # 技术博客（48篇文章）
+│   ├── tools/          # 在线工具
+│   │   ├── picframe    # 照片边框工具
+│   │   ├── photo-curve # 照片调色工具
+│   │   ├── map-generator # 地图生成器
+│   │   └── webgpu      # WebGPU 实验
+│   ├── repo/           # 项目仓库展示
+│   ├── leecode/        # LeetCode 刷题记录
+│   ├── note/           # 学习笔记
+│   └── road/           # 学习路线
+├── components/         # 共享组件
+└── mdx-components.tsx  # MDX 组件配置
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 功能特性
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 📝 技术博客系统（支持 MDX）
+- 🛠️ 在线工具集（图片处理、地图生成等）
+- 📚 学习笔记和路线
+- 💻 LeetCode 刷题记录
+- 🎨 响应式设计，支持深色模式
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 开发指南
 
-## Learn More
+### 安装依赖
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 开发模式
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm dev
+```
 
-## Deploy on Vercel
+打开 http://localhost:3000 查看效果。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 构建生产版本
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm build
+```
+
+### 代码检查
+
+```bash
+pnpm lint
+```
+
+## 部署
+
+项目可以部署到 Vercel、Netlify 等平台。
+
+## 许可证
+
+MIT
